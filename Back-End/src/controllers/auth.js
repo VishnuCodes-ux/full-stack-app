@@ -19,11 +19,10 @@ exports.register = async (req, res) => {
       studentId: userRole === 'student' ? studentId : undefined
     });
 
-    const token = generateToken(user._id);
+    
 
     res.status(201).json({
       success: true,
-      token,
       role: user.role
     });
   } catch (err) {

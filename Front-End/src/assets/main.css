@@ -1,35 +1,21 @@
-@import './base.css';
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+/* Add this to your main CSS file */
+.Vue-Toastification__toast {
+  font-family: inherit;
+  border-radius: 4px;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+.Vue-Toastification__toast--success {
+  background-color: #4CAF50;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+.Vue-Toastification__toast--error {
+  background-color: #F44336;
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+.Vue-Toastification__toast--warning {
+  background-color: #FF9800;
+}
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+.Vue-Toastification__toast--info {
+  background-color: #2196F3;
 }
