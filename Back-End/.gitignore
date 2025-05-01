@@ -1,0 +1,85 @@
+# ================================
+# Node.js & Express
+# ================================
+# Dependency directories
+node_modules/
+.pnp
+.pnp.js
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Runtime data
+*.pid
+*.seed
+*.pid.lock
+
+# Build directories
+dist/
+build/
+.out/
+.next/
+
+# Cache
+.cache/
+
+# IDE/Editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ================================
+# Vue-specific
+# ================================
+# Vue build
+dist_ssr/
+
+# Vue CLI
+.vuepress/dist/
+
+# Nuxt.js
+.nuxt/
+
+# ================================
+# Testing
+# ================================
+# Coverage
+coverage/
+.nyc_output/
+
+# Cypress
+cypress/screenshots/
+cypress/videos/
+
+# ================================
+# macOS
+# ================================
+.DS_Store
+
+# ================================
+# Windows
+# ================================
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ================================
+# Misc
+# ================================
+*.log
+*.tmp
+*.temp
+*~
+*.bak
