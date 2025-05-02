@@ -34,7 +34,6 @@ exports.register = async (req, res) => {
 // @route   POST /api/v1/auth/login
 // @access  Public
 exports.login = async (req, res, next) => {
-  console.log('Login attempt:', req.body); 
   try {
     const { email, password } = req.body;
 
@@ -48,7 +47,6 @@ exports.login = async (req, res, next) => {
 
     // Check for user
     const user = await User.findOne({ email }).select('+password');
-
     if (!user) {
       return res.status(401).json({
         success: false,
@@ -71,6 +69,7 @@ exports.login = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
+      user: user,
       token
     });
   } catch (err) {
@@ -176,8 +175,6 @@ exports.deleteUser = async (req, res, next) => {
       { new: true, select: '-password' }
     );
 
-    // 6. Log the deactivation (optional)
-    console.log(`User ${updatedUser.email} deactivated by ${req.user.email}`);
 
     res.status(200).json({
       success: true,

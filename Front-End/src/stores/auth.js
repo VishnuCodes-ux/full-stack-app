@@ -1,11 +1,20 @@
+import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
 import api from '@/services/api'
 import router from '@/router'
 
+
 export const useAuthStore = defineStore('auth', () => {
-  const user = null;
-//    ref(JSON.parse(localStorage.getItem('user')) || null)
+  const user = ref(null)
+  const rawUser = localStorage.getItem('user')
+  if (rawUser && rawUser !== 'undefined') {
+    try {
+      user.value = JSON.parse(rawUser)
+    } catch (e) {
+      console.error('Failed to parse user from localStorage:', e)
+    }
+  }
+
   const token = ref(localStorage.getItem('token') || null)
 
   if (token.value) {
@@ -32,13 +41,22 @@ export const useAuthStore = defineStore('auth', () => {
 
   function setUser(userData) {
     user.value = userData
-    localStorage.setItem('user', JSON.stringify(userData))
+    if (userData) {
+      localStorage.setItem('user', JSON.stringify(userData))
+    } else {
+      localStorage.removeItem('user')
+    }
   }
 
   function setToken(newToken) {
     token.value = newToken
-    localStorage.setItem('token', newToken)
-    api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`
+    if (newToken) {
+      localStorage.setItem('token', newToken)
+      api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`
+    } else {
+      localStorage.removeItem('token')
+      delete api.defaults.headers.common['Authorization']
+    }
   }
 
   function logout() {
@@ -50,13 +68,13 @@ export const useAuthStore = defineStore('auth', () => {
     router.push('/login')
   }
 
-  return { 
-    user, 
-    token, 
-    login, 
-    logout, 
-    setUser, 
+  return {
+    user,
+    token,
+    login,
+    logout,
+    setUser,
     setToken,
-    isAuthenticated: !!token.value
+    isAuthenticated: computed(() => !!token.value)
   }
 })

@@ -9,6 +9,8 @@ import 'vue-toastification/dist/index.css'
 import api from './services/api'
 import App from './App.vue'
 import '@/assets/main.css' 
+import '@mdi/font/css/materialdesignicons.css'
+
 const vuetify = createVuetify({
   components,
   directives,
