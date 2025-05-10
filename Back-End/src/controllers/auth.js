@@ -5,6 +5,8 @@ const { generateToken, comparePasswords } = require('../utils/auth');
 // @route   POST /api/v1/auth/register
 // @access  Public
 exports.register = async (req, res) => {
+  console.log('req', req);
+  
   try {
     const { name, email, password, role, studentId } = req.body;
     

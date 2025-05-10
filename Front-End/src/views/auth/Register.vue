@@ -1,7 +1,7 @@
 <template>
-  <v-container class="fill-height" fluid>
-    <v-row justify="center">
-      <v-col cols="12" sm="8" md="6" lg="4">
+  <v-container class="register-container" fluid>
+    <v-row align="center" justify="center" class="fill-height">
+      <v-col cols="12" sm="8" md="6">
         <v-card class="elevation-12">
           <v-toolbar color="primary" dark flat>
             <v-toolbar-title>Create Account</v-toolbar-title>
@@ -69,37 +69,29 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn
-              color="primary"
-              :disabled="!valid"
-              @click="submit"
-              size="large"
-            >
+            <v-btn color="primary" :disabled="!valid" @click="submit" size="large">
               Register
             </v-btn>
           </v-card-actions>
         </v-card>
 
         <div class="text-center mt-4">
-          <router-link to="/login"
-            >Already have an account? Sign in</router-link
-          >
+          <router-link to="/login">Already have an account? Sign in</router-link>
         </div>
       </v-col>
     </v-row>
   </v-container>
 </template>
-  
-  <script setup>
+
+<script setup>
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
-import api from '@/services/api'
+import api from "@/services/api";
 
 const router = useRouter();
 const toast = useToast();
 const form = ref(null);
-
 const valid = ref(true);
 const showPassword = ref(false);
 const showStudentIdField = ref(true);
@@ -118,7 +110,6 @@ const roles = [
   { title: "Teacher", value: "teacher" },
   { title: "Administrator", value: "admin" },
 ];
-
 
 const nameRules = [
   (v) => !!v || "Name is required",
@@ -168,16 +159,13 @@ const submit = async () => {
         userData.studentId = formData.value.studentId;
       }
 
-      const response = await api.post('/auth/register', userData);
-        if (response.status === 201) {
-            toast.success("Registration successful! Please login.");
-        } else {
-            toast.error("Registration failed. Please try again.");
-        }
-
-
-      router.push("/login");
-      toast.success("Registration successful! Please login.");
+      const response = await api.post("/auth/register", userData);
+      if (response.status === 201) {
+        toast.success("Registration successful! Please login.");
+        router.push("/login");
+      } else {
+        toast.error("Registration failed. Please try again.");
+      }
     } catch (error) {
       toast.error(error.response?.data?.message || "Registration failed");
       console.error("Registration error:", error);
@@ -185,18 +173,26 @@ const submit = async () => {
   }
 };
 </script>
-  
-  <style scoped>
+
+<style scoped>
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.register-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #f5f5f5; */
+}
+
 .v-card {
+  max-height: 95vh;
+  overflow-y: auto;
+  padding: 16px;
   border-radius: 8px;
-}
-
-.v-toolbar {
-  border-radius: 8px 8px 0 0;
-}
-
-a {
-  text-decoration: none;
-  color: var(--v-primary-base);
 }
 </style>

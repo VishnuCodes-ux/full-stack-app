@@ -19,17 +19,19 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('../views/auth/Login.vue'),
+      meta: { hideLayout: true }
     },
     {
       path: '/register',
       name: 'register',
       component: () => import('../views/auth/register.vue'),
+      meta: { hideLayout: true }
     },
     {
       path: '/dashboard',
       name: 'dashboard',
       component: () => import('@/views/DashboardView.vue'),
-      meta: { requiresAuth: true } 
+      meta: { requiresAuth: true }
     },
     {
       path: '/:pathMatch(.*)*',
@@ -41,7 +43,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
-  
+
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!authStore.token) {
       next({
